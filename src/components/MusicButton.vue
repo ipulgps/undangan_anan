@@ -1,4 +1,6 @@
 <script setup>
+import { config } from "../config/invitation";
+
 defineProps({
   playing: { type: Boolean, default: false },
   visible: { type: Boolean, default: false }
@@ -10,7 +12,7 @@ defineEmits(["toggle"]);
   <button
     type="button" class="music hv-music"
     :style="{ opacity: visible ? 1 : 0, pointerEvents: visible ? 'auto' : 'none' }"
-    :title="playing ? 'Matikan musik' : 'Nyalakan musik'"
+    :title="playing ? config.text.music.titleOn : config.text.music.titleOff"
     @click="$emit('toggle')"
   >
     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#D8C48C" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" :style="{ opacity: playing ? 1 : .4 }">

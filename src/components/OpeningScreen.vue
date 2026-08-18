@@ -15,7 +15,8 @@ const letters = name =>
 
 const groomLetters = computed(() => letters(config.groom.short));
 const brideLetters = computed(() => letters(config.bride.short));
-const guestLabel = computed(() => props.guest || "Nama Tamu");
+const t = config.text.opening;
+const guestLabel = computed(() => props.guest || t.guestFallback);
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const guestLabel = computed(() => props.guest || "Nama Tamu");
       <span class="rule-r"></span>
     </div>
 
-    <p class="eyebrow">The Wedding of</p>
+    <p class="eyebrow">{{ t.eyebrow }}</p>
 
     <h1 class="name">
       <span
@@ -49,13 +50,13 @@ const guestLabel = computed(() => props.guest || "Nama Tamu");
     <div class="divider"></div>
 
     <div class="guest">
-      <p style="margin:0 0 6px; font-size:11px; letter-spacing:.3em; color:rgba(242,241,234,.5);">KEPADA YTH.</p>
-      <p style="margin:0 0 18px; font-size:11px; letter-spacing:.16em; color:rgba(242,241,234,.42);">Bapak/Ibu/Saudara/i</p>
+      <p style="margin:0 0 6px; font-size:11px; letter-spacing:.3em; color:rgba(242,241,234,.5);">{{ t.guestTo }}</p>
+      <p style="margin:0 0 18px; font-size:11px; letter-spacing:.16em; color:rgba(242,241,234,.42);">{{ t.guestHonorific }}</p>
       <p class="guest-name">{{ guestLabel }}</p>
     </div>
 
     <div v-if="locked" class="lock">
-      <p style="margin:0 0 16px; font-size:9px; letter-spacing:.4em; text-indent:.4em; color:#BFA15F; text-transform:uppercase;">Undangan Dibuka Dalam</p>
+      <p style="margin:0 0 16px; font-size:9px; letter-spacing:.4em; text-indent:.4em; color:#BFA15F; text-transform:uppercase;">{{ t.lockTitle }}</p>
       <div class="lock-grid">
         <div v-for="u in unlockCd" :key="u.label" class="lock-cell">
           <div style="font-family:Cinzel,serif; font-size:clamp(17px,3.4vw,24px); color:#F2F1EA; line-height:1;">{{ u.value }}</div>
@@ -78,12 +79,12 @@ const guestLabel = computed(() => props.guest || "Nama Tamu");
         <svg v-else width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#BFA15F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 6h16v13H4z" /><path d="M4 7l8 6 8-6" />
         </svg>
-        <span>{{ locked ? "Belum Dapat Dibuka" : "Buka Undangan" }}</span>
+        <span>{{ locked ? t.lockedButton : t.openButton }}</span>
         <span class="sweep"></span>
       </button>
     </div>
 
-    <p class="note">MUSIK AKAN DIPUTAR SETELAH UNDANGAN DIBUKA</p>
+    <p v-if="config.music" class="note">{{ t.musicNote }}</p>
   </div>
 </template>
 

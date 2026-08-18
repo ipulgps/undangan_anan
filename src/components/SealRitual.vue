@@ -42,7 +42,7 @@ function breakSeal() {
         <div class="clip" :style="{ top: at('card','fade') ? '-108%' : '64%' }">
           <div class="card" :style="{ transform: 'translateY(' + (at('card','fade') ? '-88%' : '0%') + ')' }">
             <div class="card-face">
-              <p style="margin:0; font-size:8px; letter-spacing:.5em; text-indent:.5em; color:#8a7233; text-transform:uppercase;">The Wedding of</p>
+              <p style="margin:0; font-size:8px; letter-spacing:.5em; text-indent:.5em; color:#8a7233; text-transform:uppercase;">{{ config.text.seal.cardEyebrow }}</p>
               <p style="margin:0; font-family:Cinzel,serif; font-size:clamp(19px,5vw,26px); letter-spacing:.14em; color:#0b3d32; line-height:1.3;">
                 {{ config.groom.short }}
                 <span style="font-family:'Cormorant Garamond',serif; font-style:italic; color:#BFA15F;">&amp;</span>
@@ -72,7 +72,7 @@ function breakSeal() {
         <!-- segel lilin -->
         <button
           type="button"
-          title="Buka segel"
+          :title="config.text.seal.buttonTitle"
           @click="breakSeal"
           class="seal"
           :style="{ cursor: at('sealed') ? 'pointer' : 'default', opacity: at('sealed','cracked') ? 1 : 0 }"
@@ -80,18 +80,18 @@ function breakSeal() {
           <span
             class="half left"
             :style="{ transform: at('sealed') ? 'none' : 'translate(-38px, 26px) rotate(-42deg)', opacity: at('sealed') ? 1 : 0 }"
-          ><span class="wax">A&amp;S</span></span>
+          ><span class="wax">{{ config.monogram }}</span></span>
           <span
             class="half right"
             :style="{ transform: at('sealed') ? 'none' : 'translate(38px, 30px) rotate(46deg)', opacity: at('sealed') ? 1 : 0 }"
-          ><span class="wax">A&amp;S</span></span>
+          ><span class="wax">{{ config.monogram }}</span></span>
           <span class="ring" :style="{ opacity: at('sealed') ? 1 : 0 }"></span>
         </button>
       </div>
     </div>
 
     <p class="hint" :style="{ opacity: at('fade') ? 0 : 1 }">
-      {{ at('sealed') ? 'Ketuk segel untuk membuka' : 'Membuka undangan' }}
+      {{ at('sealed') ? config.text.seal.hintSealed : config.text.seal.hintOpening }}
     </p>
   </div>
 </template>

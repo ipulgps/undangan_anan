@@ -9,7 +9,7 @@ import SectionHeading from "./SectionHeading.vue";
     <div class="drift"></div>
 
     <div class="inner">
-      <SectionHeading eyebrow="Our Journey" title="LOVE STORY" ornament />
+      <SectionHeading :eyebrow="config.text.story.eyebrow" :title="config.text.story.title" ornament />
 
       <div class="timeline">
         <div class="rail"></div>

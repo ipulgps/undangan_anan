@@ -1,8 +1,10 @@
 <script setup>
+import { config } from "../config/invitation";
+
 defineProps({
   src: { type: String, default: "" },
   alt: { type: String, default: "" },
-  placeholder: { type: String, default: "Foto" }
+  placeholder: { type: String, default: () => config.text.photo.defaultPlaceholder }
 });
 </script>
 

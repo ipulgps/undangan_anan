@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
 import SectionHeading from "./SectionHeading.vue";
+import { config } from "../config/invitation";
 import { useRsvp } from "../composables/useRsvp";
 
+const t = config.text.rsvp;
 const { wishes, submit } = useRsvp();
 
 const name = ref("");
@@ -11,13 +13,13 @@ const attend = ref("");
 const thanks = ref(false);
 let thanksT;
 
-const options = ["Hadir", "Masih Ragu", "Tidak Hadir"];
-const countLabel = computed(() => wishes.value.length + " Ucapan");
+const options = t.attendOptions;
+const countLabel = computed(() => wishes.value.length + " " + t.countSuffix);
 
 async function send() {
   const n = name.value.trim(), m = msg.value.trim();
   if (!n || !m) return;
-  await submit({ name: n, msg: m, attend: attend.value || "Belum dikonfirmasi", at: new Date().toISOString() });
+  await submit({ name: n, msg: m, attend: attend.value || t.attendDefault, at: new Date().toISOString() });
   name.value = ""; msg.value = ""; attend.value = "";
   thanks.value = true;
   clearTimeout(thanksT);
@@ -31,20 +33,20 @@ async function send() {
 
     <div class="inner">
       <SectionHeading
-        eyebrow="Konfirmasi Kehadiran"
-        title="RSVP"
-        lede="Mohon konfirmasi kehadiran dan tinggalkan doa terbaik Anda untuk kami."
+        :eyebrow="t.eyebrow"
+        :title="t.title"
+        :lede="t.lede"
       />
 
       <div class="card reveal">
         <div class="stack">
           <div class="field">
-            <label>Nama</label>
-            <input v-model="name" type="text" placeholder="Nama Anda" class="wf-field input" />
+            <label>{{ t.nameLabel }}</label>
+            <input v-model="name" type="text" :placeholder="t.namePlaceholder" class="wf-field input" />
           </div>
 
           <div class="field">
-            <label>Kehadiran</label>
+            <label>{{ t.attendLabel }}</label>
             <div class="opts">
               <button
                 v-for="o in options" :key="o"
@@ -55,18 +57,18 @@ async function send() {
           </div>
 
           <div class="field">
-            <label>Ucapan &amp; Doa</label>
-            <textarea v-model="msg" rows="4" placeholder="Tulis ucapan dan doa terbaik Anda…" class="wf-field area"></textarea>
+            <label>{{ t.messageLabel }}</label>
+            <textarea v-model="msg" rows="4" :placeholder="t.messagePlaceholder" class="wf-field area"></textarea>
           </div>
 
           <button type="button" class="send hv-cta" @click="send">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BFA15F" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 4L3 11l7 2.6L13 21z" /><path d="M21 4L10 13.6" />
             </svg>
-            <span>Kirim Ucapan</span>
+            <span>{{ t.submitButton }}</span>
           </button>
 
-          <p class="thanks" :style="{ opacity: thanks ? 1 : 0 }">Terima kasih, ucapan Anda telah kami terima.</p>
+          <p class="thanks" :style="{ opacity: thanks ? 1 : 0 }">{{ t.thanks }}</p>
         </div>
       </div>
 
@@ -80,7 +82,7 @@ async function send() {
           <div v-for="(w, i) in wishes" :key="i" class="wish">
             <div class="wish-top">
               <p class="wish-name">{{ w.name }}</p>
-              <p class="wish-att" :style="{ color: w.attend === 'Hadir' ? '#19A974' : 'rgba(191,161,95,.8)' }">{{ w.attend }}</p>
+              <p class="wish-att" :style="{ color: w.attend === options[0] ? config.theme.jade : 'rgba(191,161,95,.8)' }">{{ w.attend }}</p>
             </div>
             <p class="wish-msg">{{ w.msg }}</p>
           </div>

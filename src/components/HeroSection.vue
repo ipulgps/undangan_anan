@@ -10,7 +10,7 @@ defineProps({ countdown: { type: Array, default: () => [] } });
   <section id="sec-hero" data-screen-label="Hero" class="hero">
     <div class="bg">
       <div class="bg-inner">
-        <PhotoSlot :src="config.heroPhoto" placeholder="Foto utama pasangan" />
+        <PhotoSlot :src="config.heroPhoto" :placeholder="config.text.photo.heroPlaceholder" />
       </div>
     </div>
     <div class="veil-a"></div>
@@ -18,7 +18,7 @@ defineProps({ countdown: { type: Array, default: () => [] } });
     <div class="vignette"></div>
 
     <div class="content">
-      <p class="eyebrow">The Celebration of Love</p>
+      <p class="eyebrow">{{ config.text.hero.eyebrow }}</p>
       <GoldName mode="intro" uid="hero" />
       <div class="rule"></div>
       <p class="date">{{ config.dateLabel }}</p>
@@ -32,7 +32,7 @@ defineProps({ countdown: { type: Array, default: () => [] } });
     </div>
 
     <div class="cue">
-      <span style="font-size:9px; letter-spacing:.4em; color:rgba(242,241,234,.5);">SCROLL</span>
+      <span style="font-size:9px; letter-spacing:.4em; color:rgba(242,241,234,.5);">{{ config.text.hero.scrollCue }}</span>
       <div style="width:1px; height:36px; background:linear-gradient(180deg, #BFA15F, transparent);"></div>
     </div>
   </section>

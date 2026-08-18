@@ -9,7 +9,7 @@ import SectionHeading from "./SectionHeading.vue";
     <div class="drift"></div>
 
     <div class="inner">
-      <SectionHeading eyebrow="Moments" title="GALERI" ornament />
+      <SectionHeading :eyebrow="config.text.gallery.eyebrow" :title="config.text.gallery.title" ornament />
 
       <div class="grid reveal-soft">
         <div

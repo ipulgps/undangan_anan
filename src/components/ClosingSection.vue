@@ -3,9 +3,11 @@ import { ref, computed } from "vue";
 import { config } from "../config/invitation";
 import GoldName from "./GoldName.vue";
 
+const t = config.text.closing;
+
 const shareName = ref("");
 const copied = ref(false);
-let t;
+let copyTimer;
 
 const link = computed(() => {
   const base = location.origin + location.pathname;
@@ -13,18 +15,21 @@ const link = computed(() => {
   return n ? base + "?to=" + encodeURIComponent(n) : base;
 });
 
-const waHref = computed(() =>
-  "https://wa.me/?text=" + encodeURIComponent(
-    "Assalamualaikum, dengan penuh rasa syukur kami mengundang Anda ke pernikahan " +
-    config.groom.short + " & " + config.bride.short + ", 12 Desember 2026. Undangan lengkap: " + link.value
-  )
-);
+/** Isi placeholder {groom} {bride} {date} {link} pada template pesan WhatsApp. */
+const waHref = computed(() => {
+  const msg = t.whatsappTemplate
+    .replace("{groom}", config.groom.short)
+    .replace("{bride}", config.bride.short)
+    .replace("{date}", config.dateShareText)
+    .replace("{link}", link.value);
+  return "https://wa.me/?text=" + encodeURIComponent(msg);
+});
 
 function copyLink() {
   const done = () => {
     copied.value = true;
-    clearTimeout(t);
-    t = setTimeout(() => (copied.value = false), 2600);
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => (copied.value = false), 2600);
   };
   if (navigator.clipboard) navigator.clipboard.writeText(link.value).then(done, done);
   else done();
@@ -45,34 +50,34 @@ function copyLink() {
         <span class="rule-r"></span>
       </div>
 
-      <p class="body reveal">{{ config.closing.body }}</p>
-      <p class="lab reveal-soft">Kami yang berbahagia</p>
+      <p class="body reveal">{{ t.body }}</p>
+      <p class="lab reveal-soft">{{ t.signature }}</p>
 
       <div class="name-wrap"><GoldName mode="scroll" uid="closing" /></div>
 
-      <p class="family reveal-soft">{{ config.closing.family }}</p>
+      <p class="family reveal-soft">{{ t.family }}</p>
       <p class="tag reveal-soft">{{ config.hashtag }}</p>
 
       <div class="share reveal">
-        <p class="share-lab">Bagikan Undangan</p>
-        <p class="share-sub">Tulis nama tamu untuk membuat tautan undangan personal.</p>
+        <p class="share-lab">{{ t.shareLabel }}</p>
+        <p class="share-sub">{{ t.shareSub }}</p>
         <div class="share-row">
-          <input v-model="shareName" type="text" placeholder="Nama tamu" class="wf-field share-input" />
+          <input v-model="shareName" type="text" :placeholder="t.sharePlaceholder" class="wf-field share-input" />
           <button type="button" class="share-btn hv-pill" @click="copyLink">
-            {{ copied ? "✓ Tersalin" : "Salin Tautan" }}
+            {{ copied ? t.copiedButton : t.copyButton }}
           </button>
           <a class="wa hv-pill" :href="waHref" target="_blank" rel="noreferrer">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D8C48C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 20.5 11.6z" />
               <path d="M8.8 9.2c0 3.2 2.8 6 6 6 1.2 0 1.4-.9 1.4-1.6l-1.9-.8-1 1a5.6 5.6 0 0 1-2.6-2.6l1-1-.8-1.9c-.7 0-1.6.2-1.6 1.4z" />
             </svg>
-            <span>WhatsApp</span>
+            <span>{{ t.whatsappButton }}</span>
           </a>
         </div>
       </div>
 
       <div class="tail"></div>
-      <p class="credit">DIBUAT DENGAN SEPENUH HATI &middot; 2026</p>
+      <p class="credit">{{ t.credit }}</p>
     </div>
   </section>
 </template>

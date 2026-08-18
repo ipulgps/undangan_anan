@@ -35,7 +35,30 @@ const { play, buzz } = useSfx();
 
 const hasMusic = computed(() => !!config.music);
 
+/** Terapkan judul & meta dari config agar semua teks tetap satu sumber. */
+function applySiteMeta() {
+  const s = config.site;
+  document.title = s.title;
+  document.documentElement.lang = s.lang;
+
+  const meta = (selector, attr, key, value) => {
+    if (!value) return;
+    let el = document.head.querySelector(selector);
+    if (!el) {
+      el = document.createElement("meta");
+      el.setAttribute(attr, key);
+      document.head.appendChild(el);
+    }
+    el.setAttribute("content", value);
+  };
+
+  meta('meta[name="description"]', "name", "description", s.description);
+  meta('meta[property="og:title"]', "property", "og:title", s.ogTitle);
+  meta('meta[property="og:description"]', "property", "og:description", s.ogDescription);
+}
+
 onMounted(() => {
+  applySiteMeta();
   const q = new URLSearchParams(location.search).get("to");
   if (q) guest.value = decodeURIComponent(q.replace(/\+/g, " "));
   document.body.style.overflow = "hidden";
@@ -56,7 +79,7 @@ function openInvitation() {
 watch([playing, opened], () => {
   const a = audio.value;
   if (!a) return;
-  a.volume = 0.5;
+  a.volume = config.musicVolume;
   if (playing.value && opened.value) {
     const p = a.play();
     if (p && p.catch) p.catch(() => {});

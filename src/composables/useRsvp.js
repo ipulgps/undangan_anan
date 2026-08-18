@@ -42,7 +42,7 @@ export function useRsvp() {
     try {
       await fetch(config.rsvpEndpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(entry)
       });
     } catch (e) {

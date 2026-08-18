@@ -3,14 +3,15 @@ import { ref } from "vue";
 import { config } from "../config/invitation";
 import SectionHeading from "./SectionHeading.vue";
 
+const t = config.text.gift;
 const copied = ref("");
-let t;
+let copyTimer;
 
 function copy(key, text) {
   const done = () => {
     copied.value = key;
-    clearTimeout(t);
-    t = setTimeout(() => (copied.value = ""), 2600);
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => (copied.value = ""), 2600);
   };
   if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, done);
   else done();
@@ -23,9 +24,9 @@ function copy(key, text) {
 
     <div class="inner">
       <SectionHeading
-        eyebrow="Tanda Kasih"
-        title="WEDDING GIFT"
-        lede="Kehadiran dan doa Anda adalah hadiah terindah. Namun apabila ingin memberi tanda kasih, kami sediakan kanal berikut."
+        :eyebrow="t.eyebrow"
+        :title="t.title"
+        :lede="t.lede"
       />
 
       <div class="cards">
@@ -36,17 +37,17 @@ function copy(key, text) {
               <rect x="2.5" y="6" width="19" height="13" rx="2" /><path d="M2.5 10.5h19" />
             </svg>
           </div>
-          <p class="lab">Nomor Rekening</p>
+          <p class="lab">{{ t.accountLabel }}</p>
           <p class="num">{{ b.number }}</p>
           <p class="holder">{{ b.holder }}</p>
           <button type="button" class="copy hv-pill" @click="copy(b.bank, b.number)">
-            {{ copied === b.bank ? "✓ Tersalin" : "Salin Nomor" }}
+            {{ copied === b.bank ? t.copiedButton : t.copyButton }}
           </button>
         </div>
       </div>
 
       <div class="addr reveal-soft">
-        <p class="addr-lab">Kirim Hadiah</p>
+        <p class="addr-lab">{{ t.addressLabel }}</p>
         <p class="addr-line">
           {{ config.giftAddress.line }}<br />
           <span class="addr-sub">{{ config.giftAddress.recipient }}</span>

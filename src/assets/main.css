@@ -31,7 +31,7 @@ button { font-family:inherit; }
 .reveal { animation-name:wf-up; animation-duration:1.6s; animation-timing-function:cubic-bezier(.16,.86,.24,1); animation-fill-mode:both; }
 .reveal-soft { animation-name:wf-in; animation-duration:1.8s; animation-fill-mode:both; }
 @supports (animation-timeline: view()) {
-  .reveal, .reveal-soft { animation-timeline:view(); animation-range:entry 0% cover 34%; }
+  .reveal { animation-timeline:view(); animation-range:entry 0% cover 34%; }
   .reveal-late { animation-range:entry 8% cover 42%; }
 }
 

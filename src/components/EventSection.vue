@@ -1,6 +1,37 @@
 <script setup>
+import { computed } from "vue";
 import { config } from "../config/invitation";
 import SectionHeading from "./SectionHeading.vue";
+
+const t = config.text.events;
+
+/** Format Date ke YYYYMMDDTHHmmSSZ (UTC) yang dipakai Google Calendar. */
+function toGCalStamp(date) {
+  return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+}
+
+/** Link "Tambah ke Google Calendar" untuk acara Akad, dari jam di events[0].time dan tanggal weddingDate. */
+const calendarUrl = computed(() => {
+  const akad = config.events[0];
+  const match = akad?.time.match(/(\d{1,2})[.:](\d{2}).*?(\d{1,2})[.:](\d{2})/);
+  if (!match) return config.calendarUrl;
+
+  const base = new Date(config.weddingDate);
+  const [, sh, sm, eh, em] = match;
+  const start = new Date(base);
+  start.setHours(+sh, +sm, 0, 0);
+  const end = new Date(base);
+  end.setHours(+eh, +em, 0, 0);
+
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: `${akad.title} — ${config.groom.short} & ${config.bride.short}`,
+    dates: `${toGCalStamp(start)}/${toGCalStamp(end)}`,
+    details: `${akad.venue}, ${akad.address}`,
+    location: `${akad.venue}, ${akad.address}`
+  });
+  return "https://calendar.google.com/calendar/render?" + params.toString();
+});
 </script>
 
 <template>
@@ -10,9 +41,9 @@ import SectionHeading from "./SectionHeading.vue";
 
     <div class="inner">
       <SectionHeading
-        eyebrow="Save The Date"
-        title="DETAIL ACARA"
-        lede="Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu."
+        :eyebrow="t.eyebrow"
+        :title="t.title"
+        :lede="t.lede"
       />
 
       <div class="cards">
@@ -30,24 +61,24 @@ import SectionHeading from "./SectionHeading.vue";
           <div class="rule"></div>
           <p class="date">{{ e.date }}</p>
           <p class="time">{{ e.time }}</p>
-          <p class="lokasi">Lokasi</p>
+          <p class="lokasi">{{ t.locationLabel }}</p>
           <p class="venue">{{ e.venue }}<br /><span class="addr">{{ e.address }}</span></p>
 
           <a class="pill hv-pill" :href="e.maps" target="_blank" rel="noreferrer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 21s-7-4.6-7-9.6A7 7 0 0 1 19 11.4c0 5-7 9.6-7 9.6z" /><circle cx="12" cy="11" r="2.4" />
             </svg>
-            <span>Lihat Lokasi</span>
+            <span>{{ t.mapsButton }}</span>
           </a>
         </div>
       </div>
 
       <div class="cal reveal-soft">
-        <a class="cal-btn hv-cta" :href="config.calendarUrl" target="_blank" rel="noreferrer">
+        <a class="cal-btn hv-cta" :href="calendarUrl" target="_blank" rel="noreferrer">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#BFA15F" stroke-width="1.3" stroke-linecap="round">
             <rect x="3.5" y="5" width="17" height="16" rx="2" /><path d="M3.5 10h17M8 3v3.4M16 3v3.4" />
           </svg>
-          <span>Simpan ke Kalender</span>
+          <span>{{ t.calendarButton }}</span>
         </a>
       </div>
     </div>
@@ -102,8 +133,9 @@ import SectionHeading from "./SectionHeading.vue";
 .cal-btn {
   display:inline-flex; align-items:center; gap:12px;
   padding:16px 34px;
-  border:1px solid rgba(191,161,95,.6); border-radius:2px;
-  background:linear-gradient(180deg, rgba(11,61,50,.35), rgba(5,8,7,.5));
+  border:1px solid rgba(216,196,140,.9); border-radius:2px;
+  background:linear-gradient(180deg, rgba(15,107,80,.92), rgba(6,40,32,.96));
   font-size:10px; letter-spacing:.36em; text-indent:.36em; text-transform:uppercase; color:#F2F1EA;
+  text-shadow:0 1px 3px rgba(0,0,0,.6);
 }
 </style>

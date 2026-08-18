@@ -1,4 +1,6 @@
 <script setup>
+import { config } from "../config/invitation";
+
 defineProps({
   active: { type: String, default: "" },
   visible: { type: Boolean, default: false }
@@ -6,11 +8,11 @@ defineProps({
 const emit = defineEmits(["go"]);
 
 const items = [
-  { id: "sec-hero", label: "Awal" },
-  { id: "sec-couple", label: "Mempelai" },
-  { id: "sec-acara", label: "Acara" },
-  { id: "sec-galeri", label: "Galeri" },
-  { id: "sec-rsvp", label: "RSVP" }
+  { id: "sec-hero", label: config.text.nav.hero },
+  { id: "sec-couple", label: config.text.nav.couple },
+  { id: "sec-acara", label: config.text.nav.events },
+  { id: "sec-galeri", label: config.text.nav.gallery },
+  { id: "sec-rsvp", label: config.text.nav.rsvp }
 ];
 </script>
 

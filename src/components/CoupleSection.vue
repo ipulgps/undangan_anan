@@ -2,9 +2,11 @@
 import { config } from "../config/invitation";
 import PhotoSlot from "./PhotoSlot.vue";
 
+const t = config.text.couple;
+
 const people = [
-  { ...config.groom, role: "Mempelai Pria", parentLabel: "Putra dari", placeholder: "Foto mempelai pria" },
-  { ...config.bride, role: "Mempelai Wanita", parentLabel: "Putri dari", placeholder: "Foto mempelai wanita" }
+  { ...config.groom, role: t.groomRole, parentLabel: t.groomParentLabel, placeholder: t.groomPhotoPlaceholder },
+  { ...config.bride, role: t.brideRole, parentLabel: t.brideParentLabel, placeholder: t.bridePhotoPlaceholder }
 ];
 </script>
 
@@ -14,8 +16,8 @@ const people = [
 
     <div class="inner">
       <div class="head reveal">
-        <p class="bismillah">Bismillahirrahmanirrahim</p>
-        <p class="lede">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami.</p>
+        <p class="bismillah">{{ t.bismillah }}</p>
+        <p class="lede">{{ t.lede }}</p>
       </div>
 
       <div class="row">
