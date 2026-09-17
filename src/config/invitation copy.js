@@ -20,7 +20,7 @@
  * 11. text       → SEMUA tulisan/label yang tampil di layar
  * 12. theme      → warna
  *
- *  Cara isi foto: taruh file di folder public/photos/, lalu tulis
+ *  Cara isi foto: taruh file di folder `public/photos/`, lalu tulis
  *  path-nya seperti "/photos/namafile.jpg". Kosongkan ("") bila
  *  ingin menampilkan placeholder.
  */
@@ -31,29 +31,11 @@ export const config = {
    * ========================================================== */
   site: {
     title: "Anan & Sarah — Wedding Invitation",
-    description: "The Wedding of Anan & Sarah — Sabtu, 27 September 2026 di Gedung Pariwisata Kota Kendari. Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.",
-    ogTitle: "The Wedding of Anan & Sarah — 27 September 2026",
-    ogDescription: "Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu. Sabtu, 27 September 2026 · Gedung Pariwisata Kota Kendari.",
+    description: "The Wedding of Anan & Sarah — 27 September 2026",
+    ogTitle: "Anan & Sarah — Wedding Invitation",
+    ogDescription: "Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.",
     favicon: "/favicon.svg",
-    lang: "id",
-
-    /* --- Preview saat link dibagikan (WhatsApp, FB, Telegram) ---
-     *
-     * PENTING: WhatsApp tidak menjalankan JavaScript. Nilai di sini
-     * TIDAK terbaca oleh WhatsApp — yang dibaca hanyalah meta statis
-     * di index.html. Jadi setiap kali mengubah 4 nilai di bawah ini
-     * (atau ogTitle/ogDescription di atas), ubah juga meta yang sama
-     * di index.html agar preview WhatsApp ikut berubah.
-     *
-     * url: alamat undangan, tanpa garis miring di akhir.
-     *      Ganti saat domain asli sudah ada.
-     * ogImage: WAJIB URL absolut (https://...), ukuran 1200x630,
-     *      dan di bawah ~300 KB agar dijemput WhatsApp.
-     */
-    url: "https://undangan-anan-sarah.vercel.app",
-    ogImage: "/og-image.jpg",          // relatif; digabung dengan url di atas
-    ogImageWidth: 1200,
-    ogImageHeight: 630
+    lang: "id"
   },
 
   /* ==========================================================
@@ -62,17 +44,17 @@ export const config = {
   groom: {
     name: "MUHAMAD ANAN MAKRIFSYAH GANI",
     short: "ANAN",
-    father: "Bapak Drs. La Gani",
-    mother: "Ibu Wa Ode Emirias",
-    instagram: "amkgani",
+    father: "Bapak AGUNG IHSYA MALAGANI",
+    mother: "Ibu [Nama Ibu]",
+    instagram: "ananpratama",
     photo: "/photos/p2.png"
   },
   bride: {
     name: "AIZARAH YUSDIAWATI TOSEPU",
     short: "SARAH",
-    father: "Bapak Yusrin A. Tosepu, S.Komm M.I.Kom",
-    mother: "Ibu Corawati (Almh)",
-    instagram: "twdsyharas",
+    father: "Bapak AIDIL RAHMAT",
+    mother: "Ibu [Nama Ibu]",
+    instagram: "sarahputri",
     photo: "/photos/p3.png"
   },
 
@@ -113,14 +95,14 @@ export const config = {
    * ========================================================== */
   story: [
     {
-      year: "2024",
+      year: "2019",
       title: "PERTAMA BERTEMU",
-      text: "Sebuah pertemuan sederhana di sebuah acara gigs Metal. Tidak ada yang menyangka bahwa percakapan singkat malam itu akan menjadi awal dari segalanya.",
+      text: "Sebuah pertemuan sederhana di sebuah acara kampus. Tidak ada yang menyangka bahwa percakapan singkat malam itu akan menjadi awal dari segalanya.",
       photo: "",
       placeholder: "Foto pertama bertemu"
     },
     {
-      year: "2025",
+      year: "2022",
       title: "MEMULAI BERSAMA",
       text: "Melewati jarak, kesibukan, dan banyak hal yang tidak mudah. Dari situ kami belajar bahwa saling menguatkan adalah bentuk cinta yang paling nyata.",
       photo: "",
@@ -147,8 +129,8 @@ export const config = {
       title: "AKAD NIKAH",
       date: "Sabtu, 27 September 2026",
       time: "08.00 – 10.00 WIB",
-      venue: "Gedung Pariwisata Kota Kendari",
-      address: "Jl. Tebaununggu, Korumba, Kec. Mandonga, Kota Kendari (Samping Eks. MTQ)",
+      venue: "Masjid Agung Al-Falah",
+      address: "Jl. Sultan Thaha No. 1, Jakarta",
       maps: "https://maps.google.com"
     },
     {
@@ -156,8 +138,8 @@ export const config = {
       title: "RESEPSI",
       date: "Sabtu, 27 September 2026",
       time: "11.00 – 14.00 WIB",
-      venue: "Gedung Pariwisata Kota Kendari",
-      address: "Jl. Tebaununggu, Korumba, Kec. Mandonga, Kota Kendari (Samping Eks. MTQ)",
+      venue: "Ballroom Graha Sejahtera",
+      address: "Jl. Merdeka Selatan No. 24, Jakarta",
       maps: "https://maps.google.com"
     }
   ],
@@ -170,24 +152,24 @@ export const config = {
    *    ratio: rasio gambar, mis. "4/5", "16/9", "1/1"
    * ========================================================== */
   gallery: [
-    { photo: "/photos/32123.jpg", placeholder: "Foto galeri 1", span: 3, ratio: "4/5" },
-    { photo: "/photos/23144.jpg", placeholder: "Foto galeri 2", span: 3, ratio: "4/5" },
+    { photo: "", placeholder: "Foto galeri 1", span: 3, ratio: "4/5" },
+    { photo: "", placeholder: "Foto galeri 2", span: 3, ratio: "4/5" },
     { photo: "/photos/p1.png", placeholder: "Foto galeri utama (lanskap)", span: 6, ratio: "16/9" },
-    { photo: "/photos/DSCF4983.JPG", placeholder: "Foto galeri 4", span: 2, ratio: "1/1" },
-    { photo: "photos/DSCF4981.JPG", placeholder: "Foto galeri 5", span: 2, ratio: "1/1" },
-    { photo: "/photos/1334432.jpg", placeholder: "Foto galeri 6", span: 2, ratio: "1/1" }
+    { photo: "", placeholder: "Foto galeri 4", span: 2, ratio: "1/1" },
+    { photo: "", placeholder: "Foto galeri 5", span: 2, ratio: "1/1" },
+    { photo: "", placeholder: "Foto galeri 6", span: 2, ratio: "1/1" }
   ],
 
   /* ==========================================================
    * 9. WEDDING GIFT
    * ========================================================== */
   banks: [
-    { bank: "BANK JAGO SYARIAH", number: "505290347419", holder: "a.n. Muhamad Anan Makrifsyah Gani" },
-    { bank: "BCA", number: "1580354048", holder: "a.n. Aizarah Yusdiawati Tosepu" }
+    { bank: "BCA", number: "1234567890", holder: "a.n. Anan Pratama" },
+    { bank: "MANDIRI", number: "0987654321", holder: "a.n. Sarah Putri" }
   ],
   giftAddress: {
-    line: "Perumahan Maharani Poasia Blok C No 23",
-    recipient: "Penerima: Aizarah Yusidawati Tosepu & Muhamad Anan Makrifsyah Gani · 0822–9324–2722"
+    line: "Jl. Kenanga No. 12, Kebayoran Baru, Jakarta Selatan 12160",
+    recipient: "Penerima: Sarah Putri · 0812–3456–7890"
   },
 
   /* ==========================================================
@@ -362,7 +344,7 @@ export const config = {
   }
 };
 
-/* Alias lama agar impor c yang sudah ada tetap berfungsi */
+/* Alias lama agar impor `c` yang sudah ada tetap berfungsi */
 export const c = config.theme;
 
 export default config;

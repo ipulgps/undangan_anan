@@ -35,7 +35,14 @@ const { play, buzz } = useSfx();
 
 const hasMusic = computed(() => !!config.music);
 
-/** Terapkan judul & meta dari config agar semua teks tetap satu sumber. */
+/**
+ * Terapkan judul & meta dari config agar semua teks tetap satu sumber.
+ *
+ * Catatan: WhatsApp/Facebook TIDAK menjalankan JavaScript, jadi fungsi ini
+ * tidak mempengaruhi preview saat link dibagikan — preview itu dibaca dari
+ * meta statis di index.html. Fungsi ini untuk judul tab browser dan crawler
+ * yang menjalankan JS (mis. Google).
+ */
 function applySiteMeta() {
   const s = config.site;
   document.title = s.title;
@@ -52,9 +59,24 @@ function applySiteMeta() {
     el.setAttribute("content", value);
   };
 
+  /* URL absolut untuk gambar preview: pakai origin sebenarnya saat dibuka,
+     dan jatuh ke site.url bila belum tersedia. */
+  const base = (typeof location !== "undefined" && location.origin)
+    ? location.origin
+    : (s.url || "");
+  const abs = (path) =>
+    !path ? "" : /^https?:\/\//i.test(path) ? path : base.replace(/\/$/, "") + path;
+
   meta('meta[name="description"]', "name", "description", s.description);
+
   meta('meta[property="og:title"]', "property", "og:title", s.ogTitle);
   meta('meta[property="og:description"]', "property", "og:description", s.ogDescription);
+  meta('meta[property="og:url"]', "property", "og:url", abs("/"));
+  meta('meta[property="og:image"]', "property", "og:image", abs(s.ogImage));
+
+  meta('meta[name="twitter:title"]', "name", "twitter:title", s.ogTitle);
+  meta('meta[name="twitter:description"]', "name", "twitter:description", s.ogDescription);
+  meta('meta[name="twitter:image"]', "name", "twitter:image", abs(s.ogImage));
 }
 
 onMounted(() => {

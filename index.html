@@ -4,12 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <!-- Nilai di bawah otomatis ditimpa oleh src/config/invitation.js → config.site
-       (yang statis di sini hanya dipakai crawler yang tidak menjalankan JS). -->
+
+  <!-- ============================================================
+       META PREVIEW (WhatsApp, Facebook, Telegram, Twitter/X, dll)
+       ============================================================
+       PENTING: WhatsApp TIDAK menjalankan JavaScript saat membuat
+       preview. Jadi meta di bawah ini WAJIB statis di sini — meta
+       yang di-set dari src/config/invitation.js lewat App.vue hanya
+       berpengaruh pada tab browser, bukan pada preview WhatsApp.
+
+       >>> YANG HARUS DIGANTI SAAT SUDAH PUNYA DOMAIN: <<<
+       Ganti SEMUA "https://undangan-anan-sarah.vercel.app" di file
+       ini dengan URL asli undangan (tanpa garis miring di akhir).
+       og:image HARUS URL absolut (https://...), path relatif seperti
+       "/og-image.jpg" tidak akan tampil di WhatsApp.
+       ============================================================ -->
+
   <title>Anan &amp; Sarah — Wedding Invitation</title>
-  <meta name="description" content="The Wedding of Anan &amp; Sarah — 27 September 2026" />
-  <meta property="og:title" content="Anan &amp; Sarah — Wedding Invitation" />
-  <meta property="og:description" content="Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir." />
+  <meta name="description" content="The Wedding of Anan &amp; Sarah — Sabtu, 27 September 2026 di Gedung Pariwisata Kota Kendari. Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir." />
+  <meta name="author" content="Anan &amp; Sarah" />
+  <meta name="theme-color" content="#062820" />
+  <link rel="canonical" href="https://undangan-anan-sarah.vercel.app/" />
+
+  <!-- Open Graph — dipakai WhatsApp, Facebook, Telegram, LinkedIn -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Anan &amp; Sarah Wedding" />
+  <meta property="og:locale" content="id_ID" />
+  <meta property="og:url" content="https://undangan-anan-sarah.vercel.app/" />
+  <meta property="og:title" content="The Wedding of Anan &amp; Sarah — 27 September 2026" />
+  <meta property="og:description" content="Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu. Sabtu, 27 September 2026 · Gedung Pariwisata Kota Kendari." />
+  <meta property="og:image" content="https://undangan-anan-sarah.vercel.app/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://undangan-anan-sarah.vercel.app/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Anan &amp; Sarah — 27 September 2026" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Wedding of Anan &amp; Sarah — 27 September 2026" />
+  <meta name="twitter:description" content="Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa dan restu." />
+  <meta name="twitter:image" content="https://undangan-anan-sarah.vercel.app/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Anan &amp; Sarah — 27 September 2026" />
+
+  <!-- Data terstruktur acara (Google & beberapa aplikasi chat) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "The Wedding of Anan & Sarah",
+    "description": "Akad nikah & resepsi pernikahan Muhamad Anan Makrifsyah Gani dan Aizarah Yusdiawati Tosepu.",
+    "startDate": "2026-09-27T08:00:00+07:00",
+    "endDate": "2026-09-27T14:00:00+07:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "image": ["https://undangan-anan-sarah.vercel.app/og-image.jpg"],
+    "url": "https://undangan-anan-sarah.vercel.app/",
+    "location": {
+      "@type": "Place",
+      "name": "Gedung Pariwisata Kota Kendari",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Tebaununggu, Korumba, Kec. Mandonga (Samping Eks. MTQ)",
+        "addressLocality": "Kota Kendari",
+        "addressRegion": "Sulawesi Tenggara",
+        "addressCountry": "ID"
+      }
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet" />
