@@ -80,7 +80,7 @@ export const config = {
   monogram: "A&S",
 
   /* ==========================================================
-   * 3. TANGGAL & AKSES
+   * 3. TANGGAL & AKSES 222222
    * ========================================================== */
   weddingDate: "2026-09-27T08:00:00+07:00",
   dateLabel: "SABTU, 27 SEPTEMBER 2026",
