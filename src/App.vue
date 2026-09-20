@@ -98,14 +98,43 @@ function openInvitation() {
   window.scrollTo(0, 0);
 }
 
+let musicStarted = false;
+let fadeTimer = null;
+
+function fadeIn(a) {
+  clearInterval(fadeTimer);
+  const target = config.musicVolume;
+  const duration = config.musicFadeIn ?? 2; // detik
+  if (duration <= 0) {
+    a.volume = target;
+    return;
+  }
+  const steps = 30;
+  const stepTime = (duration * 1000) / steps;
+  let i = 0;
+  a.volume = 0;
+  fadeTimer = setInterval(() => {
+    i++;
+    a.volume = Math.min(target, (target * i) / steps);
+    if (i >= steps) clearInterval(fadeTimer);
+  }, stepTime);
+}
+
 watch([playing, opened], () => {
   const a = audio.value;
   if (!a) return;
-  a.volume = config.musicVolume;
   if (playing.value && opened.value) {
+    if (!musicStarted) {
+      musicStarted = true;
+      a.currentTime = config.musicStart || 0;
+      fadeIn(a);
+    } else {
+      a.volume = config.musicVolume;
+    }
     const p = a.play();
     if (p && p.catch) p.catch(() => {});
   } else {
+    clearInterval(fadeTimer);
     a.pause();
   }
 });

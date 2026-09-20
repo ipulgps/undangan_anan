@@ -93,8 +93,10 @@ export const config = {
    * 4. MEDIA
    * ========================================================== */
   heroPhoto: "/photos/p1.png",
-  music: "/audio/music1.mp3",          // kosongkan "" untuk menonaktifkan musik
+  music: "/audio/music2.mp3",          // kosongkan "" untuk menonaktifkan musik
   musicVolume: 0.5,                    // 0 – 1
+  musicStart: 5,                       // mulai musik dari detik ke-N
+  musicFadeIn: 2,                      // durasi fade-in (detik), 0 = tanpa fade
   sfx: {
     seal: "/audio/sfx-seal.wav",
     paper: "/audio/sfx-paper.wav"
